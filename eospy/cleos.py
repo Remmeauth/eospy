@@ -217,7 +217,7 @@ class Cleos :
 
 
     def create_account(self, creator, creator_privkey, acct_name, owner_key, 
-                       active_key='', stake_net='1.0000 EOS', stake_cpu='1.0000 EOS', ramkb=8, permission='active', 
+                       active_key='', stake_quantity='1.0000 EOS', ramkb=8, permission='active', 
                        transfer=False, broadcast=True, timeout=30) :
         ''' '''
 
@@ -269,20 +269,20 @@ class Cleos :
             'data' : newaccount_data['binargs']
         }
         # create buyrambytes trx
-        buyram_data = self.abi_json_to_bin('rem', 'buyrambytes', {'payer':creator, 'receiver':acct_name, 'bytes': ramkb*1024})
-        buyram_json = {
-            'account' : 'rem',
-            'name' : 'buyrambytes',
-            'authorization' : [
-                {
-                    'actor' : creator,
-                    'permission' : permission
-                } ],
-            'data' : buyram_data['binargs']
-        }
+        #buyram_data = self.abi_json_to_bin('rem', 'buyrambytes', {'payer':creator, 'receiver':acct_name, 'bytes': ramkb*1024})
+        #buyram_json = {
+        #    'account' : 'rem',
+        #    'name' : 'buyrambytes',
+        #    'authorization' : [
+        #        {
+        #            'actor' : creator,
+        #            'permission' : permission
+        #        } ],
+        #    'data' : buyram_data['binargs']
+        #}
         # create delegatebw
         delegate_data = self.abi_json_to_bin('rem', 'delegatebw', 
-            {'from': creator, 'receiver': acct_name, 'stake_net_quantity':stake_net, 'stake_cpu_quantity': stake_cpu, 'transfer': transfer })
+            {'from': creator, 'receiver': acct_name, 'stake_quantity': stake_quantity, 'transfer': transfer })
         delegate_json = {
             'account' : 'rem',
             'name' : 'delegatebw',
@@ -295,7 +295,7 @@ class Cleos :
         }
 
         trx = {"actions":
-            [newaccount_json, buyram_json, delegate_json]
+            [newaccount_json, delegate_json]
         }
         # push transaction
         return self.push_transaction(trx, creator_privkey, broadcast=broadcast, timeout=timeout)
