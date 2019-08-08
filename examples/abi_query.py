@@ -1,7 +1,7 @@
 from eospy.types import Abi
 from eospy.cleos import Cleos
 
-system_accounts = ['eosio', 'eosio.token', 'eosio.msig', 'eosio.wrap']
+system_accounts = ['rem', 'rem.token', 'rem.msig', 'rem.wrap']
 
 ce = Cleos(url='https://proxy.eosnode.tools')
 

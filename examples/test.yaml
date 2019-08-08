@@ -1,26 +1,26 @@
 ---
-environment: # eosio evironment
+environment: # rem evironment
   url: http://api.pennstation.eosnewyork.io:7001
 tests: # tests to run and whether they should fail or not
   - name: test_transfer_success
     actions:
       - action: transfer
-        contract: eosio.token
+        contract: rem.token
         authorization: 
           actor: bob123451234
           permission: active
           key: 5HuaTWKeGzZhqyzuzFAjjFjPnnnjdgcp562oBSS8Wv1qgDSkR2W
         parameters:
           from: bob123451234
-          to: eosio
+          to: rem
           quantity: "100.0000 EOS"
           memo: "test1"
         exception: no
     queries:
       - query: get_table
         parameters: 
-          code: eosio
-          scope: eosio
+          code: rem
+          scope: rem
           table: producers
           lower_bound: bpa1
           limit: 1
@@ -29,21 +29,21 @@ tests: # tests to run and whether they should fail or not
   - name: test_transfer_fail
     actions:
       - action: transfer
-        contract: eosio.token
+        contract: rem.token
         authorization: 
           actor: bob123451234
           permission: active
           key: 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
         parameters:
           from: bob123451234
-          to: eosio
+          to: rem
           quantity: "100.0000 EOS"
           memo: "test1"
         exception: yes
   - name: test_voting_producers
     actions:
       - action: voteproducer
-        contract: eosio
+        contract: rem
         authorization: 
           actor: bob123451234
           permission: active

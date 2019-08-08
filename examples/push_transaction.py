@@ -9,16 +9,16 @@ import pytz
 ce = eospy.cleos.Cleos(url='http://api.pennstation.eosnewyork.io:7001')
 
 arguments = {
-            "from": "eosio",  # sender
+            "from": "rem",  # sender
             "to": "bob123451234",  # receiver
             "quantity": '1.0000 EOS',  # In EOS
             "memo": "EOS to the moon",
         }
 payload = {
-        "account": "eosio.token",
+        "account": "rem.token",
         "name": "transfer",
         "authorization": [{
-            "actor": "eosio",
+            "actor": "rem",
             "permission": "active",
         }],
     }
@@ -40,7 +40,7 @@ print(resp)
 print('------------------------------------------------')
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-key_file = os.path.join(script_dir,'pennstation_eosio.key')
+key_file = os.path.join(script_dir,'pennstation_rem.key')
 
 # wait to send transaction
 import time
@@ -48,7 +48,7 @@ print('Pushing a transaction after 10 seconds using key_file: {}'.format(key_fil
 time.sleep(10)
 
 arguments = {
-            "from": "eosio",  # sender
+            "from": "rem",  # sender
             "to": "bob123451234",  # receiver
             "quantity": '2.0000 EOS',  # In EOS
             "memo": "EOS to the moon",

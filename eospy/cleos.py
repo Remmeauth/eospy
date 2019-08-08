@@ -76,18 +76,18 @@ class Cleos :
         json={'account_name' : acct_name, "pos" : pos, "offset" : offset}
         return self.post('history.get_actions', params=None, json=json, timeout=timeout)
 
-    def get_currency(self, code='eosio.token', symbol='EOS', timeout=30) :
+    def get_currency(self, code='rem.token', symbol='EOS', timeout=30) :
         '''
         POST /v1/chain/get_currency_stats HTTP/1.0
-        {"json":false,"code":"eosio.token","symbol":"EOS"}
+        {"json":false,"code":"rem.token","symbol":"EOS"}
         '''
         json={'json':False, 'code':code, 'symbol':symbol}
         return self.post('chain.get_currency_stats', params=None, json=json, timeout=timeout)
 
-    def get_currency_balance(self, account, code='eosio.token', symbol='EOS', timeout=30) :
+    def get_currency_balance(self, account, code='rem.token', symbol='EOS', timeout=30) :
       '''
       POST /v1/chain/get_currency_balance HTTP/1.0
-      {"account":"eosio","code":"eosio.token","symbol":"EOS"}
+      {"account":"rem","code":"rem.token","symbol":"EOS"}
       '''
       json={'account':account, 'code':code, 'symbol':symbol}
       return self.post('chain.get_currency_balance', params=None, json=json, timeout=timeout)
@@ -109,7 +109,7 @@ class Cleos :
     def get_table(self, code, scope, table, index_position='',key_type='', lower_bound='', upper_bound='', limit=10, timeout=30) :
         '''
         POST /v1/chain/get_table_rows
-        {"json":true,"code":"eosio","scope":"eosio","table":"producers","index_position":"","key_type":"name","lower_bound":"","upper_bound":"","limit":10}
+        {"json":true,"code":"rem","scope":"rem","table":"producers","index_position":"","key_type":"name","lower_bound":"","upper_bound":"","limit":10}
         '''
         json = {"json":True, "code":code, "scope":scope, "table":table, "key_type":key_type, "index_position":index_position, "lower_bound": lower_bound, "upper_bound": upper_bound, "limit": limit}
         return self.post('chain.get_table_rows', params=None, json=json, timeout=timeout)
@@ -189,7 +189,7 @@ class Cleos :
     def multisig_review(self, proposer, proposal):
         ''' ''' 
         review = []
-        prop = self.get_table(code="eosio.msig", scope=proposer, table="proposal", lower_bound=proposal, limit=1)
+        prop = self.get_table(code="rem.msig", scope=proposer, table="proposal", lower_bound=proposal, limit=1)
         if prop['rows'] :
             for row in prop['rows']:
                 packed = PackedTransaction(row['packed_transaction'], self)
@@ -256,10 +256,10 @@ class Cleos :
                 'active' : active_auth
         })
         
-        newaccount_data = self.abi_json_to_bin('eosio', 'newaccount',{'creator' : creator, 'name' : acct_name, 'owner': owner_auth, 'active':active_auth})
+        newaccount_data = self.abi_json_to_bin('rem', 'newaccount',{'creator' : creator, 'name' : acct_name, 'owner': owner_auth, 'active':active_auth})
         print(newaccount_data)
         newaccount_json = {
-            'account' : 'eosio',
+            'account' : 'rem',
             'name' : 'newaccount',
             'authorization' : [
             {
@@ -269,9 +269,9 @@ class Cleos :
             'data' : newaccount_data['binargs']
         }
         # create buyrambytes trx
-        buyram_data = self.abi_json_to_bin('eosio', 'buyrambytes', {'payer':creator, 'receiver':acct_name, 'bytes': ramkb*1024})
+        buyram_data = self.abi_json_to_bin('rem', 'buyrambytes', {'payer':creator, 'receiver':acct_name, 'bytes': ramkb*1024})
         buyram_json = {
-            'account' : 'eosio',
+            'account' : 'rem',
             'name' : 'buyrambytes',
             'authorization' : [
                 {
@@ -281,10 +281,10 @@ class Cleos :
             'data' : buyram_data['binargs']
         }
         # create delegatebw
-        delegate_data = self.abi_json_to_bin('eosio', 'delegatebw', 
+        delegate_data = self.abi_json_to_bin('rem', 'delegatebw', 
             {'from': creator, 'receiver': acct_name, 'stake_net_quantity':stake_net, 'stake_cpu_quantity': stake_cpu, 'transfer': transfer })
         delegate_json = {
-            'account' : 'eosio',
+            'account' : 'rem',
             'name' : 'delegatebw',
             'authorization' : [
                 {

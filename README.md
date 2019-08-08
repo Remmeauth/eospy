@@ -77,20 +77,20 @@ pycleos --url https://api.eosnewyork.io get info
 pycleos --url https://api.eosnewyork.io get block 447
 
 # Retrieve an account from the blockchain
-pycleos --url https://api.eosnewyork.io get account --account eosio
+pycleos --url https://api.eosnewyork.io get account --account rem
 
 # Retrieve the code and ABI for an account
-pycleos --url https://api.eosnewyork.io get code --account eosio
+pycleos --url https://api.eosnewyork.io get code --account rem
 
 # Retrieve the ABI for an account
-pycleos --url https://api.eosnewyork.io get abi --account eosio
+pycleos --url https://api.eosnewyork.io get abi --account rem
 
 # Retrieve the contents of a database table
-pycleos --url https://api.eosnewyork.io get table --code eosio --scope eosio --table producers
+pycleos --url https://api.eosnewyork.io get table --code rem --scope rem --table producers
 
 # Retrive currency information
-pycleos --url https://api.eosnewyork.io get currency balance --code eosio.token --symbol EOS --account aaaaaaaaaaaa
-pycleos --url https://api.eosnewyork.io get currency stats --code eosio.token --symbol EOS
+pycleos --url https://api.eosnewyork.io get currency balance --code rem.token --symbol EOS --account aaaaaaaaaaaa
+pycleos --url https://api.eosnewyork.io get currency stats --code rem.token --symbol EOS
 
 # get accounts associated with public key
 pycleos --url https://api.eosnewyork.io get accounts --key EOS52gpRqAPfggYHLXbMuC4TSQd8WWWo94KrMq4umgUcjM62Y2dWF
